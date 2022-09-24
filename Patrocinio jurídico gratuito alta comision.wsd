@@ -1,0 +1,37 @@
+@startuml Patrocinio jurídico gratuito
+title Patrocinio jurídico gratuito
+actor "Miembro \nComision"  as WebUser #Blue
+boundary "Front \nEnd" as Portal
+control "Back \nEnd"  as Server
+database "MariaDB" as BD
+group Alta Miembro Comision
+    WebUser -> Portal:Formulario de \nalta
+    Portal -> Server:Formulario de \nalta
+    Server -> Portal:Modelo de \nFormulario
+    Portal -> WebUser:Modelo de \nFormulario
+    WebUser -> Portal:Llena \nFormulario
+    Portal-> Server:Formulario\nLleno
+    Server -> BD:crea usuario\nprovisorio 
+    Server -> BD:guarda datos\nMiembro Comision  
+    Server -> Server:Envia mail \nMiembro Comision
+    WebUser -> Portal:confirmacion de \nalta 
+    Portal -> Server:confirmacion de  \nalta
+    Server -> BD:confirmacion de \nalta
+end
+group Alta de consultante
+    WebUser -> Portal:confirmacion de \nalta Miembro Comision
+    Portal -> Server:confirmacion de  \nalta Miembro Comision
+    Server -> BD:confirma \nalta de Miembro Comision
+    Server -> Server:Envia mail \nMiembro Comision
+    WebUser -> Portal:consulta \n comisiones
+    Portal -> Server:consulta \n comisiones
+    Server -> BD:consulta \n comisiones
+    BD ->Server:Comisiones \ndisponibles
+    Server -> Portal:Comisiones \ndisponibles
+    Portal -> WebUser:Comisiones \ndisponibles
+    WebUser -> Portal:Asigna Miembro \nComision Comision
+    Portal -> Server:Asigna Miembro \nComision Comision
+    Server -> BD:Asigna Miembro \nComision Comision
+
+end
+@enduml

@@ -1,0 +1,20 @@
+@startuml Patrocinio jurídico gratuito
+title Patrocinio jurídico gratuito
+actor "consultante"  as WebUser #Blue
+boundary "Front \nEnd" as Portal
+control "Back \nEnd"  as Server
+database "MariaDB" as BD
+group Llenado de Formulario
+    WebUser -> Portal:Solicitud de\n formulario
+    Portal -> Server:Solicitud de\n formulario
+    Server -> Portal:Modelo de \nFormulario
+    Portal -> WebUser:Modelo de \nFormulario
+    WebUser -> Portal:Llena \nFormulario
+    Portal-> Server:Formulario\nLleno
+    Server -> BD:crea usuario\nprovisorio 
+    Server -> BD:guarda datos\nconsultante
+    Server -> BD:consulta especialidad \ntomadora de casos
+    BD -> Server:tomadora de Casos
+    Server -> Server:Envia mail \ntomadora de casos
+end
+@enduml
